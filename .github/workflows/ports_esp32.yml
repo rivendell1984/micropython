@@ -20,9 +20,22 @@ concurrency:
 jobs:
   build_idf50:
     runs-on: ubuntu-20.04
+    strategy:
+      matrix:
+        config:
+          - { target: GENERIC_C3, name: GENERIC_C3 }
+          - { target: GENERIC_S2, name: GENERIC_S2 }
+          - { target: GENERIC_S3, name: GENERIC_S3 }
+          - { target: LUAT_S3_SPIRAM_OCT, name: LUAT_S3_SPIRAM_OCT }
     steps:
     - uses: actions/checkout@v3
     - name: Install packages
       run: source tools/ci.sh && ci_esp32_idf50_setup
     - name: Build
       run: source tools/ci.sh && ci_esp32_build
+    - name: Save artifacts
+      uses: actions/upload-artifact@v3
+      with:
+        name: firmware-${{ matrix.config.name }}.bin
+        path: ports/esp32/build-${{ matrix.config.name }}/firmware.bin
+
