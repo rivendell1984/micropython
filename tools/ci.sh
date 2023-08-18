@@ -132,6 +132,7 @@ function ci_esp32_build {
     make ${MAKEOPTS} -C ports/esp32 BOARD=GENERIC_C3
     make ${MAKEOPTS} -C ports/esp32 BOARD=GENERIC_S2
     make ${MAKEOPTS} -C ports/esp32 BOARD=GENERIC_S3
+    make ${MAKEOPTS} -C ports/esp32 BOARD=LUAT_S3_SPIRAM_OCT
 
     # Test building native .mpy with xtensawin architecture.
     ci_native_mpy_modules_build xtensawin
